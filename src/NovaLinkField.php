@@ -64,6 +64,18 @@ class Link extends Field
 
         return $this;
     }
+    /**
+     * @param $text
+     * @return $this
+     */
+    public function emptyText($text)
+    {
+        $this->withMeta([
+            'emptyText' => is_callable($text) ? call_user_func($text) : $text,
+        ]);
+
+        return $this;
+    }
 
     /**
      * @return array

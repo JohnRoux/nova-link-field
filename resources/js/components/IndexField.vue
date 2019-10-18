@@ -1,8 +1,9 @@
 <template>
     <a :target="field.blank ? field.blank : '_self'" :class="field.classes ? field.classes : defaultClasses"
-       :href="field.href">
-        {{ field.text ? field.text : field.value }}
+       v-if="field.value"
+       :href="field.href" v-text="text">
     </a>
+    <span v-else v-text="emptyPlaceholder" :class="defaultClasses"></span>
 </template>
 
 <script>
@@ -16,6 +17,15 @@
                 'text-primary',
                 'font-bold'
             ]
-        })
+        }),
+
+        computed: {
+            text() {
+                return this.field.text ? this.field.text : this.field.value
+            },
+            emptyPlaceholder() {
+                return this.field.emptyText ? this.field.emptyText : '-'
+            },
+        }
     }
 </script>
